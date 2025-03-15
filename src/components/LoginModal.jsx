@@ -1,9 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import "./SignupModal.css";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,13 +23,17 @@ const LoginModal = ({ isOpen, onClose }) => {
       );
 
       if (response.data.token) {
-        Cookies.set("vinted_token", response.data.token, { expires: 3 });
-        onClose();
+        onLogin(response.data.token);
       }
     } catch (error) {
-      console.error("Erreur de connexion :", error.response?.data?.message);
+      console.error(
+        "Erreur de connexion :",
+        error.response?.data?.message || error.response?.data?.error
+      );
       setError(
-        error.response?.data?.message || "Email ou mot de passe incorrect."
+        error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Email ou mot de passe incorrect."
       );
     }
   };

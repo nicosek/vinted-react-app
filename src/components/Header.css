@@ -48,6 +48,10 @@
   cursor: pointer;
 }
 
+.btn-disconnect {
+  background: red;
+}
+
 .btn-outline:hover,
 .btn-solid:hover {
   opacity: 0.8;
