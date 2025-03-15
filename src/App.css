@@ -1,0 +1,11 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+} */
+
+/* 📌 Réinitialisation du box-sizing pour un calcul plus intuitif */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

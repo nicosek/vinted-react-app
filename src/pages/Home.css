@@ -1,0 +1,139 @@
+.home-container {
+  padding: 20px;
+}
+
+/* Bannière */
+.banner {
+  background: url("/home-banner.jpg") center/cover no-repeat;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.banner-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+}
+
+.banner-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 10%;
+  max-width: 350px;
+}
+
+.btn-sell {
+  background-color: #00a8b5;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Offres */
+/* Conteneur principal des offres */
+.offers-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+/* Carte d'offre */
+.offer-card {
+  width: 200px; /* Taille uniforme */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Effet au survol */
+.offer-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Image produit */
+.offer-card img {
+  width: 100%; /* Remplit la carte */
+  height: 250px; /* Hauteur fixe */
+  object-fit: cover; /* Coupe l'image proprement */
+  border-radius: 5px;
+}
+
+/* Détails de l'offre */
+.offer-details {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.offer-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+.offer-title {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.offer-seller {
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.pagination {
+  position: sticky;
+  top: 79px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px; /* Espacement avec la liste */
+  padding: 10px;
+  background: #f8f8f8; /* Légère couleur pour démarquer */
+  border-radius: 8px;
+}
+
+.pagination button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.pagination button:hover {
+  opacity: 0.8;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
