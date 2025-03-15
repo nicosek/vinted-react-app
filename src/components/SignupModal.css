@@ -100,17 +100,18 @@
 }
 
 .login-link {
-  text-align: center;
+  /* text-align: center;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 10px; */
 }
 
-.login-link a {
-  color: #44a8b3;
+.switch-modal {
+  color: var(--primary-color);
+  cursor: pointer;
   text-decoration: none;
 }
 
-.login-link a:hover {
+.switch-modal:hover {
   text-decoration: underline;
 }
 

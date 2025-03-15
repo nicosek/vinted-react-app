@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import "./SignupModal.css";
 
-const SignupModal = ({ isOpen, onClose }) => {
+const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -98,8 +98,17 @@ const SignupModal = ({ isOpen, onClose }) => {
           <button type="submit">S'inscrire</button>
 
           {/* Lien vers la connexion */}
-          <p className="login-link">
-            Tu as déjà un compte ? <a href="#">Connecte-toi !</a>
+          <p className="modal-footer">
+            Tu as déjà un compte ?{" "}
+            <span
+              className="switch-modal"
+              onClick={() => {
+                onClose();
+                setIsLoginModalOpen(true);
+              }}
+            >
+              Connecte-toi !
+            </span>
           </p>
         </form>
       </div>

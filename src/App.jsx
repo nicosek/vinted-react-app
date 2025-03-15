@@ -35,10 +35,12 @@ const App = () => {
       />
       <SignupModal
         isOpen={isSignupModalOpen}
+        setIsLoginModalOpen={setIsLoginModalOpen}
         onClose={() => setIsSignupModalOpen(false)}
       />
       <LoginModal
         isOpen={isLoginModalOpen}
+        setIsSignupModalOpen={setIsSignupModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         onLogin={handleLogin}
       />

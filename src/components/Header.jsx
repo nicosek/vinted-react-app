@@ -22,25 +22,30 @@ const Header = ({
               >
                 Se déconnecter
               </button>
-              <button className="btn-solid">Vends tes articles</button>
             </>
           ) : (
             <>
               <button
                 className="btn-outline"
-                onClick={() => setIsSignupModalOpen(true)}
+                onClick={() => {
+                  setIsSignupModalOpen(true);
+                  setIsLoginModalOpen(false);
+                }}
               >
                 S'inscrire
               </button>
               <button
                 className="btn-outline"
-                onClick={() => setIsLoginModalOpen(true)}
+                onClick={() => {
+                  setIsLoginModalOpen(true);
+                  setIsSignupModalOpen(false);
+                }}
               >
                 Se connecter
               </button>
-              <button className="btn-solid">Vends tes articles</button>
             </>
           )}
+          <button className="btn-solid">Vends tes articles</button>
         </div>
       </div>
     </header>

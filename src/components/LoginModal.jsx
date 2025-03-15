@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./SignupModal.css";
 
-const LoginModal = ({ isOpen, onClose, onLogin }) => {
+const LoginModal = ({ isOpen, onClose, onLogin, setIsSignupModalOpen }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -74,7 +74,15 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
           {/* Lien vers l'inscription */}
           <p className="modal-footer">
             Pas encore de compte ?{" "}
-            <span className="signup-link">Inscris-toi !</span>
+            <span
+              className="switch-modal"
+              onClick={() => {
+                onClose();
+                setIsSignupModalOpen(true);
+              }}
+            >
+              Inscris-toi !
+            </span>
           </p>
         </form>
       </div>
