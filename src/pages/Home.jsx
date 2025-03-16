@@ -3,19 +3,34 @@ import axios from "axios";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
-function Home() {
+const Home = ({ filters }) => {
   const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
 
-  // Récupération des offres depuis l'API
-  const fetchOffers = async (page) => {
+  // Fonction pour récupérer les offres en tenant compte des filtres
+  const fetchOffers = async () => {
     try {
+      setIsLoading(true);
+
+      // Construction dynamique des paramètres de requête
+
+      const query = {
+        page: currentPage,
+        limit,
+        ...(filters.title && { title: filters.title }),
+        ...(filters.priceMin !== undefined && { priceMin: filters.priceMin }),
+        ...(filters.priceMax !== undefined && { priceMax: filters.priceMax }),
+        ...(filters.sort && { sort: filters.sort }),
+      };
+
+      const params = new URLSearchParams(query);
       const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/v2/offers?page=${page}&limit=${limit}`
+        `https://lereacteur-vinted-api.herokuapp.com/v2/offers?${params}`
       );
+
       setOffers(response.data.offers);
       setTotalPages(Math.ceil(response.data.count / limit));
     } catch (error) {
@@ -25,9 +40,10 @@ function Home() {
     }
   };
 
+  // Effet pour mettre à jour les offres lorsque la page ou les filtres changent
   useEffect(() => {
-    fetchOffers(currentPage);
-  }, [currentPage]);
+    fetchOffers();
+  }, [currentPage, filters]); // Dépend de la page actuelle et des filtres
 
   return (
     <div className="home-container">
@@ -85,6 +101,6 @@ function Home() {
       </section>
     </div>
   );
-}
+};
 
 export default Home;

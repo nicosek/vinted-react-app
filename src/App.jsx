@@ -13,6 +13,7 @@ const App = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [token, setToken] = useState(Cookies.get("vinted_cookie") || null);
+  const [filters, setFilters] = useState({});
 
   const handleLogin = (newToken) => {
     Cookies.set("vinted_cookie", newToken, { expires: 7 });
@@ -32,6 +33,7 @@ const App = () => {
         setIsSignupModalOpen={setIsSignupModalOpen}
         setIsLoginModalOpen={setIsLoginModalOpen}
         handleLogout={handleLogout}
+        setFilters={setFilters}
       />
       <SignupModal
         isOpen={isSignupModalOpen}
@@ -45,7 +47,7 @@ const App = () => {
         onLogin={handleLogin}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home filters={filters} />} />
         <Route path="/offer/:id" element={<Offer />} />
       </Routes>
     </Router>

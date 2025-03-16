@@ -25,9 +25,48 @@
   font-weight: bold;
 }
 
+.search-filters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px; /* Ajustable si besoin */
+  margin: 0 auto;
+}
+
+.search-filters .search-bar {
+  width: 100%;
+  max-width: 600px;
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Réduit l'écart entre les éléments */
+  margin-top: 30px;
+  width: 100%;
+}
+
+/* Ajustement de la taille du texte */
+.filters-container label,
+.filters-container span {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .header-buttons {
   display: flex;
+  min-width: 400px;
   gap: 15px;
+  justify-content: end;
 }
 
 .btn-outline {

@@ -1,0 +1,55 @@
+.price-range-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.range-track {
+  width: 220px;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  position: relative;
+  margin-top: 8px;
+}
+
+.range-track-fill {
+  position: absolute;
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 0px;
+}
+
+.price-range-container .thumb-label {
+  position: absolute;
+  top: -26px;
+  background: var(--primary-color);
+  color: white;
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
