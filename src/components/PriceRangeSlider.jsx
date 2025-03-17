@@ -12,11 +12,14 @@ const PriceRangeSlider = ({ setFilters }) => {
 
   // Applique les filtres uniquement lorsqu'on relâche le curseur
   const handleFinalChange = (newValues) => {
-    setFilters((prev) => ({
-      ...prev,
-      priceMin: newValues[0],
-      priceMax: newValues[1],
-    }));
+    setFilters((prev) => {
+      const newFilters = {
+        ...prev,
+        priceMin: newValues[0],
+        priceMax: newValues[1],
+      };
+      return newFilters;
+    });
   };
 
   return (

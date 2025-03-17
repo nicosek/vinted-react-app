@@ -1,17 +1,22 @@
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PriceSortToggle from "./PriceSortToggle";
 import SearchBar from "./SearchBar";
 import PriceRangeSlider from "./PriceRangeSlider";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({
   token,
   setIsSignupModalOpen,
   setIsLoginModalOpen,
   handleLogout,
+  filters,
   setFilters,
+  setCurrentPage,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [sortOrder, setSortOrder] = useState("price-asc"); // Par défaut tri croissant
 
   const handleSortOrderToggle = () => {
@@ -24,17 +29,30 @@ const Header = ({
     }));
   };
 
+  const handleLogoClick = () => {
+    setCurrentPage(1);
+    navigate("/");
+  };
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
+  }, [filters]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
   return (
     <header className="header">
       <div className="header-container">
         {/* Logo */}
-        <Link to={`/`} className="offer-link">
+        <Link to="/" className="offer-link" onClick={handleLogoClick}>
           <h1 className="logo">Vinted</h1>
         </Link>
 
         <div className="search-filters">
           {/* Search Bar (prend toute la largeur) */}
-          <SearchBar setFilters={setFilters} />
+          <SearchBar setFilters={setFilters} setCurrentPage={setCurrentPage} />
 
           {/* Conteneur pour le tri et le slider */}
           <div className="filters-container">

@@ -4,10 +4,9 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import API_URL from "../config";
 
-const Home = ({ filters }) => {
+const Home = ({ filters, setCurrentPage, currentPage }) => {
   const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
 
@@ -57,23 +56,60 @@ const Home = ({ filters }) => {
         ) : (
           <>
             {/* Pagination */}
+            {/* Pagination */}
             <div className="pagination">
+              {/* Bouton Première Page */}
+              <button
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+              >
+                ⏮️ Première
+              </button>
+
+              {/* Bouton -10 Pages */}
+              <button
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 10))}
+                disabled={currentPage === 1}
+              >
+                ◀️ -10
+              </button>
+
+              {/* Bouton Précédent */}
               <button
                 onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage === 1}
               >
-                Précédent
+                ⬅️ Précédent
               </button>
 
               <span>
                 Page {currentPage} / {totalPages}
               </span>
 
+              {/* Bouton Suivant */}
               <button
                 onClick={() => setCurrentPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
-                Suivant
+                Suivant ➡️
+              </button>
+
+              {/* Bouton +10 Pages */}
+              <button
+                onClick={() =>
+                  setCurrentPage(Math.min(totalPages, currentPage + 10))
+                }
+                disabled={currentPage === totalPages}
+              >
+                +10 ▶️
+              </button>
+
+              {/* Bouton Dernière Page */}
+              <button
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                Dernière ⏭️
               </button>
             </div>
 

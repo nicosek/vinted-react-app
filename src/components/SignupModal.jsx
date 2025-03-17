@@ -30,7 +30,6 @@ const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen }) => {
       if (response.data.token) {
         // Stockage du token dans les cookies
         Cookies.set("vinted_token", response.data.token, { expires: 3 });
-        console.log("Inscription réussie !");
         onClose(); // Fermer la modal après l'inscription
       }
     } catch (error) {
