@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Home.css";
 import { Link } from "react-router-dom";
+import API_URL from "../config";
 
 const Home = ({ filters }) => {
   const [offers, setOffers] = useState([]);
@@ -10,13 +11,9 @@ const Home = ({ filters }) => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
 
-  // Fonction pour récupérer les offres en tenant compte des filtres
   const fetchOffers = async () => {
     try {
       setIsLoading(true);
-
-      // Construction dynamique des paramètres de requête
-
       const query = {
         page: currentPage,
         limit,
@@ -27,12 +24,10 @@ const Home = ({ filters }) => {
       };
 
       const params = new URLSearchParams(query);
-      const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/v2/offers?${params}`
-      );
+      const response = await axios.get(`${API_URL}/offers?${params}`);
 
       setOffers(response.data.offers);
-      setTotalPages(Math.ceil(response.data.count / limit));
+      setTotalPages(Math.ceil(response.data.total / limit));
     } catch (error) {
       console.error("Erreur lors de la récupération des offres :", error);
     } finally {
@@ -40,10 +35,19 @@ const Home = ({ filters }) => {
     }
   };
 
-  // Effet pour mettre à jour les offres lorsque la page ou les filtres changent
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (currentPage !== 1) {
+      setCurrentPage(1);
+    } else {
+      fetchOffers();
+    }
+  }, [filters]);
+
   useEffect(() => {
     fetchOffers();
-  }, [currentPage, filters]); // Dépend de la page actuelle et des filtres
+  }, [currentPage]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="home-container">
@@ -80,8 +84,8 @@ const Home = ({ filters }) => {
                   : "/placeholder.jpg"; // Image par défaut
 
                 return (
-                  <div key={offer._id} className="offer-card">
-                    <Link to={`/offer/${offer._id}`} className="offer-link">
+                  <div key={offer.id} className="offer-card">
+                    <Link to={`/offer/${offer.id}`} className="offer-link">
                       <img src={imageUrl} alt={offer.product_name} />
                       <div className="offer-details">
                         <p className="offer-price">{offer.product_price} €</p>

@@ -3,7 +3,7 @@ import { Range } from "react-range";
 import "./PriceRangeSlider.css";
 
 const PriceRangeSlider = ({ setFilters }) => {
-  const [values, setValues] = useState([0, 250]); // Valeurs par défaut du slider
+  const [values, setValues] = useState([0, 500]); // Valeurs par défaut du slider
 
   // Met à jour en temps réel
   const handleChange = (newValues) => {
@@ -30,23 +30,29 @@ const PriceRangeSlider = ({ setFilters }) => {
           values={values}
           onChange={handleChange}
           onFinalChange={handleFinalChange}
-          renderTrack={({ props, children }) => (
-            <div {...props} className="range-track">
+          renderTrack={({ props, children }) => {
+            return (
               <div
-                className="range-track-fill"
-                style={{
-                  left: `${(values[0] / 1000) * 100}%`,
-                  width: `${((values[1] - values[0]) / 1000) * 100}%`,
-                }}
-              />
-              {children}
-            </div>
-          )}
-          renderThumb={({ props, index }) => (
-            <div {...props} className="range-thumb">
-              <span className="thumb-label">{values[index]}€</span>
-            </div>
-          )}
+                {...props}
+                ref={props.ref} // ⚠️ IMPORTANT : garantir que react-range peut détecter le track
+                className="range-track"
+              >
+                {children}
+              </div>
+            );
+          }}
+          renderThumb={({ props, index }) => {
+            return (
+              <div
+                {...props}
+                ref={props.ref} // ✅ Garde le ref pour que le slider fonctionne
+                key={index}
+                className="range-thumb"
+              >
+                <span className="thumb-label">{values[index]}€</span>
+              </div>
+            );
+          }}
         />
       </div>
     </div>

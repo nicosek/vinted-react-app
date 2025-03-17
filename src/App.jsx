@@ -13,7 +13,7 @@ const App = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [token, setToken] = useState(Cookies.get("vinted_cookie") || null);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({ sort: "price-asc" });
 
   const handleLogin = (newToken) => {
     Cookies.set("vinted_cookie", newToken, { expires: 7 });

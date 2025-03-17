@@ -15,10 +15,12 @@ const Header = ({
   const [sortOrder, setSortOrder] = useState("price-asc"); // Par défaut tri croissant
 
   const handleSortOrderToggle = () => {
-    setSortOrder((prev) => (prev === "price-asc" ? "price-desc" : "price-asc"));
+    const newSortOrder = sortOrder === "price-asc" ? "price-desc" : "price-asc";
+
+    setSortOrder(newSortOrder); // ✅ Mise à jour du state
     setFilters((prev) => ({
       ...prev,
-      sort: sortOrder === "price-asc" ? "price-desc" : "price-asc",
+      sort: newSortOrder, // ✅ Utilisation immédiate de la nouvelle valeur
     }));
   };
 

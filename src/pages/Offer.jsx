@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./Offer.css";
+import API_URL from "../config";
 
 const Offer = () => {
   const { id } = useParams();
@@ -11,9 +12,8 @@ const Offer = () => {
   useEffect(() => {
     const fetchOffer = async () => {
       try {
-        const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/v2/offers/${id}`
-        );
+        const response = await axios.get(`${API_URL}/offers/${id}`);
+
         setOffer(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -43,14 +43,12 @@ const Offer = () => {
       <div className="offer-page-details">
         <h2>{offer.product_price} €</h2>
         <ul>
-          {offer.product_details.map((detail, index) => {
-            const key = Object.keys(detail)[0];
-            return (
+          {offer.product_details &&
+            Object.entries(offer.product_details).map(([key, value], index) => (
               <li key={index}>
-                <span>{key} :</span> {detail[key]}
+                <span>{key} :</span> {value}
               </li>
-            );
-          })}
+            ))}
         </ul>
         <h3>{offer.product_name}</h3>
         <p>{offer.product_description}</p>
