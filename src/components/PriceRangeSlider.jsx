@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Range } from "react-range";
 import "./PriceRangeSlider.css";
 
-const PriceRangeSlider = ({ setFilters }) => {
+const PriceRangeSlider = ({ updateFilters }) => {
   const [values, setValues] = useState([0, 500]); // Valeurs par défaut du slider
 
   // Met à jour en temps réel
@@ -12,14 +12,7 @@ const PriceRangeSlider = ({ setFilters }) => {
 
   // Applique les filtres uniquement lorsqu'on relâche le curseur
   const handleFinalChange = (newValues) => {
-    setFilters((prev) => {
-      const newFilters = {
-        ...prev,
-        priceMin: newValues[0],
-        priceMax: newValues[1],
-      };
-      return newFilters;
-    });
+    updateFilters({ priceMin: newValues[0], priceMax: newValues[1] });
   };
 
   return (

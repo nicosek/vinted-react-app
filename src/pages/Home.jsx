@@ -11,12 +11,6 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const limit = 10;
 
   const fetchOffers = async () => {
-    console.log(
-      "🔥 Fetching offers with filters:",
-      filters,
-      "and page:",
-      currentPage
-    );
     try {
       setIsLoading(true);
       const query = {
@@ -55,12 +49,6 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   }, [filters]);
 
   useEffect(() => {
-    console.log(
-      "🔥 Fetching offers with filters:",
-      filters,
-      "and page:",
-      currentPage
-    );
     fetchOffers();
   }, [currentPage]);
 

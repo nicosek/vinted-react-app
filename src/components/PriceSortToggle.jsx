@@ -1,7 +1,13 @@
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import "./PriceSortToggle.css";
 
-const PriceSortToggle = ({ sortOrder, handleSortOrderToggle }) => {
+const PriceSortToggle = ({ sortOrder, updateFilters }) => {
+  const handleSortOrderToggle = () => {
+    const newSortOrder = sortOrder === "price-asc" ? "price-desc" : "price-asc";
+
+    updateFilters({ sort: newSortOrder });
+  };
+
   return (
     <div className="price-sort-toggle">
       <span>Trier par prix :</span>

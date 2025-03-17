@@ -16,6 +16,14 @@ const App = () => {
   const [filters, setFilters] = useState({ sort: "price-asc" });
   const [currentPage, setCurrentPage] = useState(1);
 
+  const updateFilters = (newFilters) => {
+    setFilters((prev) => ({
+      ...prev,
+      ...newFilters,
+    }));
+    setCurrentPage(1); // 🔥 Toujours revenir en page 1 quand on change un filtre
+  };
+
   const handleLogin = (newToken) => {
     Cookies.set("vinted_cookie", newToken, { expires: 7 });
     setToken(newToken);
@@ -35,7 +43,7 @@ const App = () => {
         setIsLoginModalOpen={setIsLoginModalOpen}
         handleLogout={handleLogout}
         filters={filters}
-        setFilters={setFilters}
+        updateFilters={updateFilters}
         setCurrentPage={setCurrentPage}
       />
       <SignupModal

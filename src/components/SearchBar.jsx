@@ -3,7 +3,7 @@ import { Search } from "@mui/icons-material";
 import "./SearchBar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const SearchBar = ({ setFilters, setCurrentPage }) => {
+const SearchBar = ({ updateFilters }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -11,11 +11,7 @@ const SearchBar = ({ setFilters, setCurrentPage }) => {
   // Déclenche la recherche lors d'un "Enter"
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      setFilters((prev) => ({
-        ...prev,
-        title: searchTerm,
-      }));
-      setCurrentPage(1);
+      updateFilters({ title: searchTerm });
       if (location.pathname !== "/") {
         navigate("/"); // 🔥 On retourne à Home si on n'y est pas déjà
       }
@@ -28,10 +24,7 @@ const SearchBar = ({ setFilters, setCurrentPage }) => {
   // Réinitialisation en appuyant sur "Escape"
   const handleReset = () => {
     setSearchTerm(""); // Vide l'input
-    setFilters((prev) => ({
-      ...prev,
-      title: undefined, // Supprime le filtre de recherche
-    }));
+    updateFilters({ title: undefined });
   };
 
   return (

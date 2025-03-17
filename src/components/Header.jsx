@@ -1,6 +1,6 @@
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PriceSortToggle from "./PriceSortToggle";
 import SearchBar from "./SearchBar";
 import PriceRangeSlider from "./PriceRangeSlider";
@@ -12,22 +12,11 @@ const Header = ({
   setIsLoginModalOpen,
   handleLogout,
   filters,
-  setFilters,
+  updateFilters,
   setCurrentPage,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [sortOrder, setSortOrder] = useState("price-asc"); // Par défaut tri croissant
-
-  const handleSortOrderToggle = () => {
-    const newSortOrder = sortOrder === "price-asc" ? "price-desc" : "price-asc";
-
-    setSortOrder(newSortOrder); // ✅ Mise à jour du state
-    setFilters((prev) => ({
-      ...prev,
-      sort: newSortOrder, // ✅ Utilisation immédiate de la nouvelle valeur
-    }));
-  };
 
   const handleLogoClick = () => {
     setCurrentPage(1);
@@ -52,18 +41,18 @@ const Header = ({
 
         <div className="search-filters">
           {/* Search Bar (prend toute la largeur) */}
-          <SearchBar setFilters={setFilters} setCurrentPage={setCurrentPage} />
+          <SearchBar updateFilters={updateFilters} />
 
           {/* Conteneur pour le tri et le slider */}
           <div className="filters-container">
             {/* Toggle du tri */}
             <PriceSortToggle
-              sortOrder={sortOrder}
-              handleSortOrderToggle={handleSortOrderToggle}
+              sortOrder={filters.sort}
+              updateFilters={updateFilters}
             />
 
             {/* Slider Prix */}
-            <PriceRangeSlider setFilters={setFilters} />
+            <PriceRangeSlider updateFilters={updateFilters} />
           </div>
         </div>
 
