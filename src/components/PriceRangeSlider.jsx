@@ -40,6 +40,14 @@ const PriceRangeSlider = ({ setFilters }) => {
                 ref={props.ref} // ⚠️ IMPORTANT : garantir que react-range peut détecter le track
                 className="range-track"
               >
+                <div
+                  className="range-track-fill"
+                  style={{
+                    left: `${(values[0] / 1000) * 100}%`,
+                    width: `${((values[1] - values[0]) / 1000) * 100}%`,
+                    backgroundColor: "var(--primary-color)",
+                  }}
+                />
                 {children}
               </div>
             );

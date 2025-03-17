@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Home.css";
 import { Link } from "react-router-dom";
@@ -11,6 +11,12 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const limit = 10;
 
   const fetchOffers = async () => {
+    console.log(
+      "🔥 Fetching offers with filters:",
+      filters,
+      "and page:",
+      currentPage
+    );
     try {
       setIsLoading(true);
       const query = {
@@ -35,27 +41,47 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */
+  const prevFilters = useRef(filters); // Stocke les anciens filtres
+
   useEffect(() => {
     if (currentPage !== 1) {
       setCurrentPage(1);
-    } else {
+    } else if (
+      JSON.stringify(filters) !== JSON.stringify(prevFilters.current)
+    ) {
       fetchOffers();
     }
+    prevFilters.current = filters; // Met à jour la référence après exécution
   }, [filters]);
 
   useEffect(() => {
+    console.log(
+      "🔥 Fetching offers with filters:",
+      filters,
+      "and page:",
+      currentPage
+    );
     fetchOffers();
   }, [currentPage]);
+
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="home-container">
+      <section className="banner">
+        <div className="banner-overlay">
+          <div className="banner-content">
+            <h2>Prêts à faire du tri dans vos placards ?</h2>
+            <button className="btn-sell">Commencer à vendre</button>
+          </div>
+        </div>
+      </section>
+
       <section className="offers">
         {isLoading ? (
           <p>Chargement en cours...</p>
         ) : (
           <>
-            {/* Pagination */}
             {/* Pagination */}
             <div className="pagination">
               {/* Bouton Première Page */}

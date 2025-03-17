@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 30px;
 }
 
 .banner-overlay {
@@ -105,7 +106,7 @@
   justify-content: center;
   align-items: center;
   gap: 35px;
-  margin-bottom: 20px; /* Espacement avec la liste */
+  margin-bottom: 0px; /* Espacement avec la liste */
   padding: 10px;
   background: #f8f8f8; /* Légère couleur pour démarquer */
   border-radius: 8px;
