@@ -10,12 +10,14 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
 
-  const getOffers = async () => {
+  const getOffers = async (signal) => {
     try {
       setIsLoading(true);
-      const data = await fetchOffers(filters, currentPage);
-      setOffers(data.offers);
-      setTotalPages(Math.ceil(data.total / 10));
+      const data = await fetchOffers(filters, currentPage, signal);
+      if (data) {
+        setOffers(data.offers);
+        setTotalPages(Math.ceil(data.total / 10));
+      }
     } catch (error) {
       console.error("Erreur lors du fetch des offres :", error);
     } finally {
@@ -28,16 +30,27 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const isFirstRender = useRef(true); // ✅ Ajout d'un flag pour détecter le premier rendu
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     if (!isFirstRender.current && prevPage.current === 1) {
-      getOffers(); // 🔥 On fetch seulement si ce n'est pas le premier rendu
+      getOffers(signal); // 🔥 On fetch seulement si ce n'est pas le premier rendu
     }
     prevPage.current = currentPage; // ✅ Met à jour la page précédente
+    return () => {
+      controller.abort(); // ⛔ Annule la requête en cours si le composant change
+    };
   }, [filters]);
 
   useEffect(() => {
-    getOffers(); // 🔄 On fetch toujours quand la page change
+    const controller = new AbortController();
+    const signal = controller.signal;
+    getOffers(signal); // 🔄 On fetch toujours quand la page change
     prevPage.current = currentPage; // ✅ Met à jour la page précédente
     isFirstRender.current = false; // ✅ Désactive le flag après le premier rendu
+
+    return () => {
+      controller.abort(); // ⛔ Annule la requête en cours si le composant change
+    };
   }, [currentPage]);
 
   /* eslint-enable react-hooks/exhaustive-deps */
