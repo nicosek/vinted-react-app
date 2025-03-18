@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { Login } from "../utils/api";
 import "./SignupModal.css";
 
 const LoginModal = ({ isOpen, onClose, onLogin, setIsSignupModalOpen }) => {
@@ -11,30 +11,15 @@ const LoginModal = ({ isOpen, onClose, onLogin, setIsSignupModalOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error
+    setError("");
 
     try {
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
-        {
-          email,
-          password,
-        }
-      );
+      const data = await Login({ email, password });
 
-      if (response.data.token) {
-        onLogin(response.data.token);
-      }
+      if (data.token) onLogin(data.token);
     } catch (error) {
-      console.error(
-        "Erreur de connexion :",
-        error.response?.data?.message || error.response?.data?.error
-      );
-      setError(
-        error.response?.data?.message ||
-          error.response?.data?.error ||
-          "Email ou mot de passe incorrect."
-      );
+      console.error("Erreur de connexion :", error.message);
+      setError(error.message);
     }
   };
 

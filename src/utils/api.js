@@ -55,3 +55,17 @@ export const Signup = async (userData) => {
     throw new Error(error.response?.data?.message || "Erreur d'inscription");
   }
 };
+
+// Login
+export const Login = async (credentials) => {
+  try {
+    const response = await axios.post(`${API_URL}/user/login`, credentials);
+    return response.data; // Renvoie l'objet contenant le token
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Email ou mot de passe incorrect."
+    );
+  }
+};

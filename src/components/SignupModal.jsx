@@ -3,7 +3,7 @@ import { Signup } from "../utils/api";
 import Cookies from "js-cookie";
 import "./SignupModal.css";
 
-const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen }) => {
+const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen, onSignup }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,8 +20,7 @@ const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen }) => {
       const data = await Signup({ email, username, password, newsletter });
 
       if (data.token) {
-        Cookies.set("vinted_token", data.token, { expires: 3 });
-        onClose();
+        onSignup(data.token);
       }
     } catch (error) {
       console.error(

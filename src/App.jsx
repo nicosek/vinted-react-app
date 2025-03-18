@@ -28,6 +28,7 @@ const App = () => {
     Cookies.set("vinted_cookie", newToken, { expires: 7 });
     setToken(newToken);
     setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
   };
 
   const handleLogout = () => {
@@ -50,6 +51,7 @@ const App = () => {
         isOpen={isSignupModalOpen}
         setIsLoginModalOpen={setIsLoginModalOpen}
         onClose={() => setIsSignupModalOpen(false)}
+        onSignup={handleLogin}
       />
       <LoginModal
         isOpen={isLoginModalOpen}
