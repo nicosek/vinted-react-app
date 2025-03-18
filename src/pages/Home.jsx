@@ -1,34 +1,22 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import "./Home.css";
+import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
-import API_URL from "../config";
+import { fetchOffers } from "../utils/api";
 
 const Home = ({ filters, setCurrentPage, currentPage }) => {
   const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
-  const limit = 10;
 
-  const fetchOffers = async () => {
+  const getOffers = async () => {
     try {
       setIsLoading(true);
-      const query = {
-        page: currentPage,
-        limit,
-        ...(filters.title && { title: filters.title }),
-        ...(filters.priceMin !== undefined && { priceMin: filters.priceMin }),
-        ...(filters.priceMax !== undefined && { priceMax: filters.priceMax }),
-        ...(filters.sort && { sort: filters.sort }),
-      };
-
-      const params = new URLSearchParams(query);
-      const response = await axios.get(`${API_URL}/offers?${params}`);
-
-      setOffers(response.data.offers);
-      setTotalPages(Math.ceil(response.data.total / limit));
+      const data = await fetchOffers(filters, currentPage);
+      setOffers(data.offers);
+      setTotalPages(Math.ceil(data.total / 10));
     } catch (error) {
-      console.error("Erreur lors de la récupération des offres :", error);
+      console.error("Erreur lors du fetch des offres :", error);
     } finally {
       setIsLoading(false);
     }
@@ -39,16 +27,23 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const isFirstRender = useRef(true); // ✅ Ajout d'un flag pour détecter le premier rendu
 
   useEffect(() => {
+    console.log("🟢 [filters] useEffect déclenché avec filters:", filters);
+    console.log("📌 Valeur de prevPage.current AVANT :", prevPage.current);
     if (!isFirstRender.current && prevPage.current === 1) {
-      fetchOffers(); // 🔥 On fetch seulement si ce n'est pas le premier rendu
+      console.log("🚀 Fetch déclenché dans [filters]");
+      getOffers(filters, currentPage);
     }
-    prevPage.current = currentPage; // ✅ Met à jour la page précédente
+    prevPage.current = currentPage;
   }, [filters]);
 
   useEffect(() => {
-    fetchOffers(); // 🔄 On fetch toujours quand la page change
-    prevPage.current = currentPage; // ✅ Met à jour la page précédente
-    isFirstRender.current = false; // ✅ Désactive le flag après le premier rendu
+    console.log(
+      "🔵 [currentPage] useEffect déclenché avec currentPage:",
+      currentPage
+    );
+    getOffers(filters, currentPage);
+    prevPage.current = currentPage;
+    isFirstRender.current = false;
   }, [currentPage]);
 
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -70,61 +65,11 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
         ) : (
           <>
             {/* Pagination */}
-            <div className="pagination">
-              {/* Bouton Première Page */}
-              <button
-                onClick={() => setCurrentPage(1)}
-                disabled={currentPage === 1}
-              >
-                ⏮️ Première
-              </button>
-
-              {/* Bouton -10 Pages */}
-              <button
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 10))}
-                disabled={currentPage === 1}
-              >
-                ◀️ -10
-              </button>
-
-              {/* Bouton Précédent */}
-              <button
-                onClick={() => setCurrentPage(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                ⬅️ Précédent
-              </button>
-
-              <span>
-                Page {currentPage} / {totalPages}
-              </span>
-
-              {/* Bouton Suivant */}
-              <button
-                onClick={() => setCurrentPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              >
-                Suivant ➡️
-              </button>
-
-              {/* Bouton +10 Pages */}
-              <button
-                onClick={() =>
-                  setCurrentPage(Math.min(totalPages, currentPage + 10))
-                }
-                disabled={currentPage === totalPages}
-              >
-                +10 ▶️
-              </button>
-
-              {/* Bouton Dernière Page */}
-              <button
-                onClick={() => setCurrentPage(totalPages)}
-                disabled={currentPage === totalPages}
-              >
-                Dernière ⏭️
-              </button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
 
             <div className="offers-container">
               {offers.map((offer) => {

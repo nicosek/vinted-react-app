@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import "./Offer.css";
-import API_URL from "../config";
+import { fetchOfferById } from "../utils/api";
 
 const Offer = () => {
   const { id } = useParams();
@@ -12,9 +11,7 @@ const Offer = () => {
   useEffect(() => {
     const fetchOffer = async () => {
       try {
-        const response = await axios.get(`${API_URL}/offers/${id}`);
-
-        setOffer(response.data);
+        setOffer(await fetchOfferById(id));
         setIsLoading(false);
       } catch (error) {
         console.error("Erreur lors de la récupération de l'annonce :", error);
