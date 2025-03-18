@@ -27,23 +27,16 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   const isFirstRender = useRef(true); // ✅ Ajout d'un flag pour détecter le premier rendu
 
   useEffect(() => {
-    console.log("🟢 [filters] useEffect déclenché avec filters:", filters);
-    console.log("📌 Valeur de prevPage.current AVANT :", prevPage.current);
     if (!isFirstRender.current && prevPage.current === 1) {
-      console.log("🚀 Fetch déclenché dans [filters]");
-      getOffers(filters, currentPage);
+      getOffers(); // 🔥 On fetch seulement si ce n'est pas le premier rendu
     }
-    prevPage.current = currentPage;
+    prevPage.current = currentPage; // ✅ Met à jour la page précédente
   }, [filters]);
 
   useEffect(() => {
-    console.log(
-      "🔵 [currentPage] useEffect déclenché avec currentPage:",
-      currentPage
-    );
-    getOffers(filters, currentPage);
-    prevPage.current = currentPage;
-    isFirstRender.current = false;
+    getOffers(); // 🔄 On fetch toujours quand la page change
+    prevPage.current = currentPage; // ✅ Met à jour la page précédente
+    isFirstRender.current = false; // ✅ Désactive le flag après le premier rendu
   }, [currentPage]);
 
   /* eslint-enable react-hooks/exhaustive-deps */
