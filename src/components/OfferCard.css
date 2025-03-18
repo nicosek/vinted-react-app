@@ -1,0 +1,48 @@
+/* Carte d'offre */
+.offer-card {
+  width: 200px; /* Taille uniforme */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Effet au survol */
+.offer-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Image produit */
+.offer-card img {
+  width: 100%; /* Remplit la carte */
+  height: 250px; /* Hauteur fixe */
+  object-fit: cover; /* Coupe l'image proprement */
+  border-radius: 5px;
+}
+
+/* Détails de l'offre */
+.offer-details {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.offer-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+.offer-title {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.offer-seller {
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+}
