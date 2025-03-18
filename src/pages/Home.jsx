@@ -35,21 +35,20 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
   };
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  const prevFilters = useRef(filters); // Stocke les anciens filtres
+  const prevPage = useRef(currentPage);
+  const isFirstRender = useRef(true); // ✅ Ajout d'un flag pour détecter le premier rendu
 
   useEffect(() => {
-    if (currentPage !== 1) {
-      setCurrentPage(1);
-    } else if (
-      JSON.stringify(filters) !== JSON.stringify(prevFilters.current)
-    ) {
-      fetchOffers();
+    if (!isFirstRender.current && prevPage.current === 1) {
+      fetchOffers(); // 🔥 On fetch seulement si ce n'est pas le premier rendu
     }
-    prevFilters.current = filters; // Met à jour la référence après exécution
+    prevPage.current = currentPage; // ✅ Met à jour la page précédente
   }, [filters]);
 
   useEffect(() => {
-    fetchOffers();
+    fetchOffers(); // 🔄 On fetch toujours quand la page change
+    prevPage.current = currentPage; // ✅ Met à jour la page précédente
+    isFirstRender.current = false; // ✅ Désactive le flag après le premier rendu
   }, [currentPage]);
 
   /* eslint-enable react-hooks/exhaustive-deps */
