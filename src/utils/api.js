@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL; // ✅ Utilisation de la variable d'environnement
+// const API_URL = import.meta.env.VITE_API_URL; // ✅ Utilisation de la variable d'environnement
+import API_URL from "../config";
 
 // 🛍 Récupère les offres avec les filtres et la pagination
 export const fetchOffers = async (filters, currentPage, signal, limit = 10) => {
@@ -35,5 +36,22 @@ export const fetchOfferById = async (id) => {
   } catch (error) {
     console.error("❌ Erreur lors de la récupération de l'offre :", error);
     throw error;
+  }
+};
+
+// Signup
+export const Signup = async (userData) => {
+  try {
+    const formattedData = {
+      email: userData.email,
+      password: userData.password,
+      newsletter: userData.newsletter,
+      account: { username: userData.username },
+    };
+
+    const response = await axios.post(`${API_URL}/user/signup`, formattedData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Erreur d'inscription");
   }
 };

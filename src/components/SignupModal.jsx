@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { Signup } from "../utils/api";
 import Cookies from "js-cookie";
 import "./SignupModal.css";
 
@@ -14,27 +14,21 @@ const SignupModal = ({ isOpen, onClose, setIsLoginModalOpen }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(""); // Réinitialisation de l'erreur
+    setError("");
 
     try {
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        {
-          email,
-          username,
-          password,
-          newsletter,
-        }
-      );
+      const data = await Signup({ email, username, password, newsletter });
 
-      if (response.data.token) {
-        // Stockage du token dans les cookies
-        Cookies.set("vinted_token", response.data.token, { expires: 3 });
-        onClose(); // Fermer la modal après l'inscription
+      if (data.token) {
+        Cookies.set("vinted_token", data.token, { expires: 3 });
+        onClose();
       }
     } catch (error) {
-      console.error("Erreur d'inscription :", error.response?.data?.message);
-      setError(error.response?.data?.message || "Une erreur est survenue.");
+      console.error(
+        "Erreur d'inscription :",
+        error.message || "Une erreur est survenue."
+      );
+      setError(error.message || "Une erreur est survenue.");
     }
   };
 
