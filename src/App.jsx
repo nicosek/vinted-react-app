@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
+import Publish from "./pages/Publish";
 
 const App = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const App = () => {
   };
 
   const handleLogin = (newToken) => {
-    Cookies.set("vinted_cookie", newToken, { expires: 7 });
+    Cookies.set("vinted_cookie", newToken, { expires: 3 });
     setToken(newToken);
     setIsLoginModalOpen(false);
     setIsSignupModalOpen(false);
@@ -34,6 +35,14 @@ const App = () => {
   const handleLogout = () => {
     Cookies.remove("vinted_cookie");
     setToken(null);
+  };
+
+  const handlePublishClick = (navigate) => {
+    if (token) {
+      navigate("/publish");
+    } else {
+      setIsLoginModalOpen(true);
+    }
   };
 
   return (
@@ -46,6 +55,7 @@ const App = () => {
         filters={filters}
         updateFilters={updateFilters}
         setCurrentPage={setCurrentPage}
+        handlePublishClick={handlePublishClick}
       />
       <SignupModal
         isOpen={isSignupModalOpen}
@@ -67,10 +77,12 @@ const App = () => {
               filters={filters}
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
+              handlePublishClick={handlePublishClick}
             />
           }
         />
         <Route path="/offer/:id" element={<Offer />} />
+        <Route path="/publish" element={<Publish />} />
       </Routes>
     </Router>
   );

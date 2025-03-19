@@ -5,7 +5,7 @@ import Pagination from "../components/Pagination";
 import OfferCard from "../components/OfferCard";
 import { fetchOffers } from "../utils/api";
 
-const Home = ({ filters, setCurrentPage, currentPage }) => {
+const Home = ({ filters, setCurrentPage, currentPage, handlePublishClick }) => {
   const [offers, setOffers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
@@ -57,7 +57,7 @@ const Home = ({ filters, setCurrentPage, currentPage }) => {
 
   return (
     <div className="home-container">
-      <Banner />
+      <Banner handlePublishClick={handlePublishClick} />
 
       <section className="offers">
         {isLoading ? (

@@ -1,6 +1,4 @@
 import axios from "axios";
-
-// const API_URL = import.meta.env.VITE_API_URL; // ✅ Utilisation de la variable d'environnement
 import API_URL from "../config";
 
 // 🛍 Récupère les offres avec les filtres et la pagination
@@ -67,5 +65,29 @@ export const Login = async (credentials) => {
         error.response?.data?.error ||
         "Email ou mot de passe incorrect."
     );
+  }
+};
+
+// 📌 Création d'une offre
+export const createOffer = async (formData, token) => {
+  try {
+    // Création du formData pour l'upload
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+
+    // Requête POST avec authentification
+    const response = await axios.post(`${API_URL}/offers`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Authentification
+        "Content-Type": "multipart/form-data", // Format d'envoi
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la création de l'offre :", error);
+    throw error; // Propager l'erreur pour gestion en front
   }
 };

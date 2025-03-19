@@ -14,6 +14,7 @@ const Header = ({
   filters,
   updateFilters,
   setCurrentPage,
+  handlePublishClick,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -89,7 +90,12 @@ const Header = ({
               </button>
             </>
           )}
-          <button className="btn-solid">Vends tes articles</button>
+          <button
+            className="btn-sell"
+            onClick={() => handlePublishClick(navigate)}
+          >
+            Vends tes articles
+          </button>
         </div>
       </div>
     </header>

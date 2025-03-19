@@ -1,0 +1,221 @@
+/* Style général */
+.publish-container {
+  background-color: #f5f5f5;
+  width: 80%;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+h2 {
+  text-align: left;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* Style du formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  background: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-group {
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid #d3d3d3; /* Ligne de séparation */
+}
+
+.form-group label {
+  font-weight: bold;
+  flex: 12; /* Permet au label d'avoir une largeur fixe sans prendre toute la ligne */
+  min-width: 150px; /* Empêche le label d'être trop petit */
+}
+
+.void-label {
+  flex: 8;
+}
+
+.form-group input,
+.form-group textarea {
+  flex: 18; /* Donne plus d'espace au champ de saisie */
+  width: 100%; /* Évite les débordements */
+  padding: 8px;
+  border: none;
+  border-bottom: #d3d3d3 solid;
+  outline: none;
+  background-color: transparent;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #c4c1c1;
+  font-style: italic;
+}
+
+.form-group textarea {
+  resize: vertical; /* Permet d'ajuster la hauteur si nécessaire */
+  min-height: 80px; /* Assure une bonne lisibilité du texte */
+}
+
+/* Section fichier */
+.file-upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.file-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 200px; /* Fixe une hauteur pour éviter l'agrandissement */
+  padding: 100px;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box; /* Empêche le padding d'affecter la hauteur */
+  overflow: hidden; /* Évite que le contenu déborde */
+}
+
+.upload-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.preview-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-image {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.btn-upload {
+  border: 2px solid var(--primary-color);
+  background-color: white;
+  color: var(--primary-color);
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+/* Section prix et checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px; /* Taille fixe pour la case */
+  height: 16px;
+  flex-shrink: 0; /* Empêche toute expansion */
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  border: 1px solid #333;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox-label span {
+  flex-grow: 1; /* Permet au texte de s'étendre correctement */
+}
+
+input[type="checkbox"] {
+  all: unset; /* 🔥 Réinitialise toutes les propriétés qui pourraient causer un comportement inattendu */
+}
+
+/* Bouton Ajouter */
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-submit {
+  background-color: #00a8b5;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #008a94;
+}
+
+.error-message {
+  background-color: #ffebeb;
+  color: #d8000c;
+  border: 1px solid #d8000c;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+}
