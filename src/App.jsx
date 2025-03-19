@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import Home from "./pages/Home";
 import Offer from "./pages/Offer";
 import Publish from "./pages/Publish";
+import Payment from "./pages/Payment";
 
 const App = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
@@ -81,8 +82,12 @@ const App = () => {
             />
           }
         />
-        <Route path="/offer/:id" element={<Offer />} />
+        <Route
+          path="/offer/:id"
+          element={<Offer setIsLoginModalOpen={setIsLoginModalOpen} />}
+        />
         <Route path="/publish" element={<Publish />} />
+        <Route path="/offer/:id/payment" element={<Payment />} />
       </Routes>
     </Router>
   );

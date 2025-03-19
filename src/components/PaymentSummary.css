@@ -1,0 +1,26 @@
+.payment-summary {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px auto;
+}
+
+.payment-summary .total {
+  font-weight: bold;
+  font-size: 20px;
+  color: #000;
+}
+
+.payment-summary h2 {
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
+
+.payment-summary p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #555;
+}

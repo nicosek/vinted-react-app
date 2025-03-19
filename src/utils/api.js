@@ -1,5 +1,5 @@
 import axios from "axios";
-import API_URL from "../config";
+import { API_URL } from "../config";
 
 // 🛍 Récupère les offres avec les filtres et la pagination
 export const fetchOffers = async (filters, currentPage, signal, limit = 10) => {
@@ -89,5 +89,21 @@ export const createOffer = async (formData, token) => {
   } catch (error) {
     console.error("Erreur lors de la création de l'offre :", error);
     throw error; // Propager l'erreur pour gestion en front
+  }
+};
+
+export const initiatePayment = async (title, amount) => {
+  try {
+    const response = await axios.post(
+      "https://lereacteur-vinted-api.herokuapp.com/v2/payment",
+      {
+        title,
+        amount: amount * 100, // 💰 Convertir en centimes pour Stripe
+      }
+    );
+    return response.data.client_secret; // 🔥 Retourne le clientSecret
+  } catch (error) {
+    console.error("Erreur lors de l'initiation du paiement:", error);
+    throw error; // Relever l'erreur pour la gérer dans CheckoutForm.jsx
   }
 };

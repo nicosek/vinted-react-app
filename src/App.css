@@ -9,3 +9,16 @@
 *::after {
   box-sizing: border-box;
 }
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.8;
+}

@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Offer.css";
 import { fetchOfferById } from "../utils/api";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-const Offer = () => {
+const Offer = ({ setIsLoginModalOpen }) => {
   const { id } = useParams();
   const [offer, setOffer] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const token = Cookies.get("vinted_cookie");
 
   useEffect(() => {
     const fetchOffer = async () => {
@@ -24,6 +28,16 @@ const Offer = () => {
   if (isLoading) {
     return <p>Chargement en cours...</p>;
   }
+
+  const handleBuyClick = () => {
+    if (!token) {
+      // 🔴 Si l'utilisateur n'est pas connecté, on ouvre le modal Login
+      setIsLoginModalOpen(true);
+    } else {
+      // 🟢 Sinon, on l'emmène vers /payment avec les infos de l'offre
+      navigate(`/offer/${offer.id}/payment`, { state: { offer } });
+    }
+  };
 
   return (
     <div className="offer-container">
@@ -58,7 +72,9 @@ const Offer = () => {
           )}
           <span>{offer.owner.account.username}</span>
         </div>
-        <button className="buy-button">Acheter</button>
+        <button className="buy-button" onClick={handleBuyClick}>
+          Acheter
+        </button>
       </div>
     </div>
   );
