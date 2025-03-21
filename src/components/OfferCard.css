@@ -46,3 +46,29 @@
   color: gray;
   margin-top: 5px;
 }
+
+/* Applique une opacité réduite aux offres vendues */
+.offer-card.sold {
+  opacity: 0.6;
+  position: relative; /* Permet de bien positionner le badge */
+}
+
+/* Bandeau "VENDU" incliné */
+.sold-badge {
+  position: absolute;
+  padding: 5px 5px; /* ⬅️ Réduction de la largeur */
+  right: -10px; /* ⬅️ Moins décalé vers la droite */
+  top: 10px;
+  /* top: 20px; */
+  /* right: -30px; */
+  background: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  /* padding: 5px 30px; */
+  text-transform: uppercase;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Assure qu'il reste visible */
+}

@@ -1,0 +1,25 @@
+.status-toggle {
+  display: flex;
+  gap: 6px;
+  background: #f3f3f3;
+  border-radius: 20px;
+  padding: 4px 8px;
+}
+
+.status-toggle button {
+  border: none;
+  background: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  border-radius: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.status-toggle button.active {
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+}

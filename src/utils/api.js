@@ -1,5 +1,8 @@
 import axios from "axios";
-import { API_URL } from "../config";
+import { API_URL, VINTED_AUTH_COOKIES_NAME } from "../config";
+import Cookies from "js-cookie";
+
+const auth_token = Cookies.get(VINTED_AUTH_COOKIES_NAME);
 
 // 🛍 Récupère les offres avec les filtres et la pagination
 export const fetchOffers = async (filters, currentPage, signal, limit = 10) => {
@@ -11,6 +14,7 @@ export const fetchOffers = async (filters, currentPage, signal, limit = 10) => {
       ...(filters.priceMin !== undefined && { priceMin: filters.priceMin }),
       ...(filters.priceMax !== undefined && { priceMax: filters.priceMax }),
       ...(filters.sort && { sort: filters.sort }),
+      ...(filters.status && { status: filters.status }),
     };
 
     const params = new URLSearchParams(query);
@@ -58,7 +62,7 @@ export const Signup = async (userData) => {
 export const Login = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/user/login`, credentials);
-    return response.data; // Renvoie l'objet contenant le token
+    return response.data; // Renvoie l'objet contenant le auth_token
   } catch (error) {
     throw new Error(
       error.response?.data?.message ||
@@ -69,7 +73,7 @@ export const Login = async (credentials) => {
 };
 
 // 📌 Création d'une offre
-export const createOffer = async (formData, token) => {
+export const createOffer = async (formData) => {
   try {
     // Création du formData pour l'upload
     const data = new FormData();
@@ -80,7 +84,7 @@ export const createOffer = async (formData, token) => {
     // Requête POST avec authentification
     const response = await axios.post(`${API_URL}/offers`, data, {
       headers: {
-        Authorization: `Bearer ${token}`, // Authentification
+        Authorization: `Bearer ${auth_token}`, // Authentification
         "Content-Type": "multipart/form-data", // Format d'envoi
       },
     });
@@ -92,18 +96,21 @@ export const createOffer = async (formData, token) => {
   }
 };
 
-export const initiatePayment = async (title, amount) => {
+export const initiatePayment = async (offerId) => {
   try {
     const response = await axios.post(
-      "https://lereacteur-vinted-api.herokuapp.com/v2/payment",
+      `${API_URL}/offers/${offerId}/initiate_payment`,
+      {},
       {
-        title,
-        amount: amount * 100, // 💰 Convertir en centimes pour Stripe
+        headers: {
+          Authorization: `Bearer ${auth_token}`,
+        },
       }
     );
-    return response.data.client_secret; // 🔥 Retourne le clientSecret
+
+    return response.data.clientSecret;
   } catch (error) {
-    console.error("Erreur lors de l'initiation du paiement:", error);
-    throw error; // Relever l'erreur pour la gérer dans CheckoutForm.jsx
+    console.error("Erreur lors de l'initiation du paiement :", error);
+    throw error;
   }
 };
