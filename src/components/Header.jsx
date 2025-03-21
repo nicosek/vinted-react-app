@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import PriceSortToggle from "./PriceSortToggle";
 import SearchBar from "./SearchBar";
 import PriceRangeSlider from "./PriceRangeSlider";
+import StatusToggle from "./StatusToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = ({
@@ -54,6 +55,12 @@ const Header = ({
 
             {/* Slider Prix */}
             <PriceRangeSlider updateFilters={updateFilters} />
+
+            {/* Toggle pour le statut de diponiblité */}
+            <StatusToggle
+              selectedStatus={filters.status}
+              updateFilters={updateFilters}
+            />
           </div>
         </div>
 

@@ -33,10 +33,7 @@ const CheckoutForm = ({ offer }) => {
       }
 
       // 🔥 2. Appel API pour récupérer le clientSecret
-      const clientSecret = await initiatePayment(
-        offer.product_name,
-        offer.product_price
-      );
+      const clientSecret = await initiatePayment(offer.id);
 
       // 🔥 3. Confirmation du paiement avec Stripe
       const stripeResponse = await stripe.confirmPayment({

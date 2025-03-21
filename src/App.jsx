@@ -15,7 +15,10 @@ const App = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [token, setToken] = useState(Cookies.get("vinted_cookie") || null);
-  const [filters, setFilters] = useState({ sort: "price-asc" });
+  const [filters, setFilters] = useState({
+    sort: "price-asc",
+    status: "available",
+  });
   const [currentPage, setCurrentPage] = useState(1);
 
   const updateFilters = (newFilters) => {

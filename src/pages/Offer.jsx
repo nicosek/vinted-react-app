@@ -66,8 +66,8 @@ const Offer = ({ setIsLoginModalOpen }) => {
         <div className="seller-info">
           {offer.owner.account.avatar && (
             <img
-              src={offer.owner.account.avatar.secure_url}
-              alt={offer.owner.account.username}
+              src={offer.owner.account?.avatar?.secure_url}
+              alt={offer.owner.account?.username}
             />
           )}
           <span>{offer.owner.account.username}</span>
