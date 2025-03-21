@@ -72,7 +72,6 @@ const Publish = () => {
       }
 
       const data = await createOffer(formData, token);
-      console.log("Offre créée avec succès :", data);
 
       navigate(`/offer/${data.id}`);
     } catch (error) {

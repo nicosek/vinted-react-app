@@ -42,6 +42,7 @@ const Offer = ({ setIsLoginModalOpen }) => {
   return (
     <div className="offer-container">
       <div className="offer-image">
+        {offer.status === "sold" && <div className="sold-badge-big">VENDU</div>}
         <img
           src={
             offer.product_image
@@ -72,8 +73,12 @@ const Offer = ({ setIsLoginModalOpen }) => {
           )}
           <span>{offer.owner.account.username}</span>
         </div>
-        <button className="buy-button" onClick={handleBuyClick}>
-          Acheter
+        <button
+          className="buy-button"
+          onClick={handleBuyClick}
+          disabled={offer.status === "sold"}
+        >
+          {offer.status === "sold" ? "Vendu" : "Acheter"}
         </button>
       </div>
     </div>

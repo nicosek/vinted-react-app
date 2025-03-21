@@ -2,8 +2,6 @@ import axios from "axios";
 import { API_URL, VINTED_AUTH_COOKIES_NAME } from "../config";
 import Cookies from "js-cookie";
 
-const auth_token = Cookies.get(VINTED_AUTH_COOKIES_NAME);
-
 // 🛍 Récupère les offres avec les filtres et la pagination
 export const fetchOffers = async (filters, currentPage, signal, limit = 10) => {
   try {
@@ -84,7 +82,7 @@ export const createOffer = async (formData) => {
     // Requête POST avec authentification
     const response = await axios.post(`${API_URL}/offers`, data, {
       headers: {
-        Authorization: `Bearer ${auth_token}`, // Authentification
+        Authorization: `Bearer ${Cookies.get(VINTED_AUTH_COOKIES_NAME)}`, // Authentification
         "Content-Type": "multipart/form-data", // Format d'envoi
       },
     });
@@ -103,7 +101,7 @@ export const initiatePayment = async (offerId) => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${auth_token}`,
+          Authorization: `Bearer ${Cookies.get(VINTED_AUTH_COOKIES_NAME)}`,
         },
       }
     );

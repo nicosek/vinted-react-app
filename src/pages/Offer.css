@@ -6,6 +6,10 @@
   padding: 40px;
 }
 
+.offer-image {
+  position: relative;
+}
+
 .offer-image img {
   max-width: 400px;
   border-radius: 10px;
@@ -47,4 +51,28 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.buy-button:disabled {
+  background-color: #aaa;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.sold-badge-big {
+  position: absolute;
+  top: 45px;
+  right: -18px;
+  padding: 5px 50px;
+  background: red;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  opacity: 0.9;
 }
